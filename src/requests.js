@@ -1,8 +1,8 @@
 const chalk = require('chalk');
 const fetch = require('node-fetch');
 
-const get = async URL =>
-  fetch(URL)
+const get = async url =>
+  await fetch(url)
     .then(res => res.json())
     .then(data => data);
 
