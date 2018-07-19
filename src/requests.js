@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const fetch = require('node-fetch');
 
 const get = async url =>
