@@ -1,9 +1,11 @@
-const { green } = require('chalk')
-const chalk = require('chalk')
+// external
 const figlet = require('figlet')
-const { filter } = require('./src/utils/filter.js')
 
-const { requestJoke, requestCategories, requestSpecificCategorie } = require('./src/requests.js')
+// utils
+const { filter, forEach, blackGreen, green } = require('./src/utils/index')
+
+// requests
+const { requestJoke, requestSpecificCategorie } = require('./src/requests.js')
 
 const command = process.argv[2]
 
@@ -36,13 +38,11 @@ function commands(arg) {
 
   const getCategory = cmd => requestSpecificCategorie(
     filter(categories)(category => category === cmd).join('')
-  ).then(obj => console.log(chalk.black.bgGreen(obj.value)))
+  ).then(obj => console.log(blackGreen(obj.value)))
 
   const opts = {
-    joke: () => requestJoke().then(obj => console.log(chalk.black.bgGreen(obj.value))),
-    categories: () => requestCategories().then(
-      cats => cats.forEach(cat => console.log(chalk.black.bgGreen(cat))
-      )),
+    joke: () => requestJoke().then(obj => console.log(blackGreen(obj.value))),
+    categories: () => forEach(categories)(cat => console.log(blackGreen(cat))),
   }
 
   return (opts[arg] || getCategory)(arg)
