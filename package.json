@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "webpack ./index.js -w --mode development --module-bind js=babel-loader --output-path='./dist'",
-        "build": "webpack --mode production --module-bind js=babel-loader"
+        "build": "webpack ./index.js --mode production --module-bind js=babel-loader"
     },
     "keywords": [
         "chuck",
