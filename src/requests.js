@@ -1,27 +1,19 @@
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
 
 const get = async url =>
   await fetch(url)
     .then(res => res.json())
-    .then(data => data);
+    .then(data => data)
 
-const requestJoke = async () => {
-  const URL = 'https://api.chucknorris.io/jokes/random';
-  return await get(URL);
-};
+const requestJoke = async () => await get('https://api.chucknorris.io/jokes/random')
 
-const requestCategories = async () => {
-  const URL = 'https://api.chucknorris.io/jokes/categories';
-  return await get(URL);
-};
+const requestCategories = async () => await get('https://api.chucknorris.io/jokes/categories')
 
-const requestSpecificCategorie = async categorie => {
-  const URL = `https://api.chucknorris.io/jokes/random?category=${categorie}`;
-  return await get(URL);
-};
+const requestSpecificCategorie = async category =>
+  await get(`https://api.chucknorris.io/jokes/random?category=${category}`)
 
 module.exports = {
   requestJoke,
   requestCategories,
   requestSpecificCategorie,
-};
+}

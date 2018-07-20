@@ -1,51 +1,49 @@
-const chalk = require('chalk')
+const { whiteGreenBold, green } = require('chalk')
 const figlet = require('figlet')
 const { filter } = require('./src/utils/filter.js')
 
 const { requestJoke, requestCategories, requestSpecificCategorie } = require('./src/requests.js')
 
-module.exports = () => {
-    console.log(
-        chalk.green(
-            figlet.textSync('chuck jokes\n', { horizontalLayout: 'full' })
+const command = process.argv[2]
+
+  console.log(
+      green(
+          figlet.textSync('chuck jokes\n', { horizontalLayout: 'full' })
         )
     )
 
+  function commands(arg) {
 
+    const categories = [
+      'explicit',
+      'dev',
+      'movie',
+      'food',
+      'celebrity',
+      'science',
+      'sport',
+      'political',
+      'religion',
+      'animal',
+      'history',
+      'music',
+      'travel',
+      'career',
+      'money',
+      'fashion'
+    ]
 
-    function commands(args) {
+    const getCategory = cmd => requestSpecificCategorie(
+        filter(categories)(category => category === cmd).join('')
+    )
 
-        const categories = [
-            'explicit',
-            'dev',
-            'movie',
-            'food',
-            'celebrity',
-            'science',
-            'sport',
-            'political',
-            'religion',
-            'animal',
-            'history',
-            'music',
-            'travel',
-            'career',
-            'money',
-            'fashion'
-        ]
-
-        const filterCategory = filter(categories)(category => category === command)
-        const getCategory = command => requestSpecificCategorie(filterCategory(command).join(''))
-
-        const opts = {
-            joke: requestJoke,
-            categories: requestCategories,
-        }
-
-        return (opts[args] || getCategory)(args)
+    const opts = {
+      joke: requestJoke,
+      categories: requestCategories,
     }
 
-    commands(process.argv[2])
+    return (opts[arg] || getCategory)(arg)
+  }
 
-}
+  commands(command)
 
